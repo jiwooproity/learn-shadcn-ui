@@ -8,12 +8,32 @@ import {
 } from "@/shared/components/ui/accordion";
 import { Button } from "@/shared/components/ui/button";
 import { Input } from "@/shared/components/ui/input";
+import { ChangeEvent, KeyboardEvent, useRef } from "react";
 
 export default function Home() {
+  const searchRef = useRef<string>("");
+
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    searchRef.current = value;
+  };
+
+  const onKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.nativeEvent.isComposing) return;
+    else if (e.key === "Enter") {
+      alert(searchRef.current);
+    }
+  };
+
   return (
     <div className="main-container">
       <div className="main-box">
-        <Input type="text" placeholder="검색어를 입력해 주세요." />
+        <Input
+          type="text"
+          placeholder="검색어를 입력해 주세요."
+          onChange={onChange}
+          onKeyDown={onKeyDown}
+        />
       </div>
       <div className="main-box rounded-md border border-solid border-default px-5 py-0">
         <Accordion type="multiple">
