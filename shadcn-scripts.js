@@ -9,7 +9,7 @@ const CREATE_COMPONENT = "생성할 Shadcn/ui 컴포넌트를 입력해 주세�
 const CANCELED_MESSAGE = "작업이 취소되었습니다.";
 
 const readdir = () => {
-  const filePath = path.resolve(__dirname, "src/components/common/ui");
+  const filePath = path.resolve(__dirname, "src/shared/components/ui");
   const fileNames = readdirSync(filePath).map((file) => file.split("."));
   return fileNames.map((file) => file[0]);
 };
