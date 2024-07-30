@@ -4,12 +4,16 @@ const { createInterface } = require("readline/promises");
 const { stdin, stdout } = require("process");
 const { exec } = require("child_process");
 
+const config = require("./components.json");
+
 const OVERWRITE_MESSAGE = "동일한 컴포넌트가 이미 있습니다. 덮어 씌우시겠습니까? (y/n) :";
 const CREATE_COMPONENT = "생성할 Shadcn/ui 컴포넌트를 입력해 주세요. :";
 const CANCELED_MESSAGE = "작업이 취소되었습니다.";
 
 const readdir = () => {
-  const filePath = path.resolve(__dirname, "src/shared/components/ui");
+  const configPath = config.aliases.components.replace("@/", "");
+  const baseUrl = configPath.includes("src") ? "" : "src/"; // @ alias 사용 시에 대한 예외 처리
+  const filePath = path.resolve(__dirname, `${baseUrl}${configPath}/ui`);
   const fileNames = readdirSync(filePath).map((file) => file.split("."));
   return fileNames.map((file) => file[0]);
 };
