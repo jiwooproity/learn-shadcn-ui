@@ -44,7 +44,7 @@ const MESSAGE = {
   };
 
   // 중복 컴포넌트 검증
-  const validationComp = (componentName) => {
+  const isDuplicateComp = (componentName) => {
     const configPath = aliases.components.replace("@/", "");
     const filePath = resolve(__dirname, `src/${configPath}/ui`);
     const fileNames = readdirSync(filePath).map((file) => file.split("."));
@@ -63,7 +63,7 @@ const MESSAGE = {
     let option = ""; // shadcn/ui CLI 옵션
 
     // 덮어 씌울지에 대한 분기
-    if (validationComp(componentName)) {
+    if (isDuplicateComp(componentName)) {
       if ((await rl.question(MESSAGE.OVERWRITE)) !== "y") {
         notice(MESSAGE.CANCELED);
       }
